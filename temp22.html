@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="officedesk.jpeg" width="200px" id="desk">
+    <script>
+        desk.style.position = "absolute";
+        //giving absolute in order to move the position
+        let b = document.body;
+        let left = 0;
+        b.onkeydown = (e) => {
+            left = left + 5;
+            desk.style.left = left + "px";
+        };
+
+
+    </script>
+</body>
+
+</html>

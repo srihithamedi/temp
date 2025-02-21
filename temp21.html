@@ -66,7 +66,7 @@
         padding-right: 5px;
         margin: 2px;
       }
-      .radioClass,.checkBoxClass{
+      .radioClass {
         border: 1px solid gray;
         display: flex;
         justify-content: space-between;
@@ -75,8 +75,6 @@
         border-radius: 5px;
         padding: 3px;
       }
-      
-
     </style>
   </head>
   <body>
@@ -116,43 +114,41 @@
       let dd = null;
       let mm;
       let yy;
-      let pronoun;
+      let pronoun = "NA";
       let g = "";
+      let movies=false
+      let music=false
+      let sports=false
       const showData = () => {
         firstname = document.getElementById("firstname").value;
         surname = document.getElementById("surname").value;
         email = document.getElementById("email").value;
         password = document.getElementById("password").value;
         gender = document.getElementsByName("gender");
-        interest=document.getElementsByName("interest");
         pronoun = document.getElementById("prSelect").value;
         dd = Number(document.getElementById("day").value);
         mm = Number(document.getElementById("month").value);
         yy = Number(document.getElementById("year").value);
-        console.log(dd, mm, yy);
+        sports = document.getElementById("sports").checked;
+        music = document.getElementById("music").checked;
+        movies = document.getElementById("movies").checked;
+        let strInterests = "";
+        if (sports) strInterests += "Sports ";
+        if (music) strInterests += "Music ";
+        if (movies) strInterests += "Movies ";
         let dob = `${dd}-${months[mm]}-${yy}`;
         g = "";
         if (gender[0].checked) g = "Female";
         if (gender[1].checked) g = "Male";
         if (gender[2].checked) g = pronoun;
-
-       let i="";
-   
-    for(let v of interest){
-        if(interest[v].checked){
-            i+=interest[v].value+" ";
-        }
-    }
-        
-
         let str = `
           <h3>Verify your information</h3>
           <p>Name:${firstname} ${surname}</p>
           <p>Email:${email}</p>
           <p>Password:${password}</p>
           <p>Gender:${g}</p>
-          <p>Interest:${i}</p>
           <p>Date of Birth:${dob}</p>
+          <p>Interests:${strInterests}</p>
           <button>Confirm</button>
           <button onclick=showForm()>Edit</button>
         </div>
@@ -204,6 +200,7 @@
         <select id="month"></select>
         <select id="year"></select>
       </div>
+
       <div class="row" style="justify-content: start">
         <div class="leftCaption">
           Gender<span class="qMark"
@@ -232,44 +229,41 @@
         </div>
       </div>
 
+      <div class="row" style="justify-content: start">
+        <div class="leftCaption">
+          Interests<span class="qMark"
+            ><abbr title="Click for more information">?</abbr></span
+          >
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="radioClass">
+          <div><label> Movies</label></div>
+          <div><input type="checkbox" ${movies && "checked"} id='movies'/></div>
+        </div>
+        <div class="radioClass">
+          <div><label> Music</label></div>
+          <div><input type="checkbox" ${music && "checked"} id='music'/></div>
+        </div>
+        <div class="radioClass">
+          <div><label>Sports</label></div>
+          <div><input type="checkbox" ${sports && "checked"} id='sports' /></div>
+        </div>
+      </div>
+
+
      <div class="row">
       <select id="prSelect" style="display:none">
         <option value="NA" >Select your pronoun</option>
-        <option value="She" >She:"Wish her a happy birthday"</option>
+        <option value="She" ${
+          pronoun == "She" && "selected"
+        }>She:"Wish her a happy birthday"</option>
         <option value="He">He:"Wish him a happy birthday"</option>
         <option value="They" >They:"Wish them a happy birthday"</option>
       </select>
      </div>
-
-     <div class="row" style="justify-content: start">
-      <div class="leftCaption">
-        Interest<span class="qMark"><abbr title="Click for more information">?</abbr></span>
-      </div>
-      </div>
-
-      <div class="row">
-        <div class="checkBoxClass">
-            <div><label>Music</label></div>
-          <div><input type="checkbox" ${
-        Music && "checked"
-          }  name="interest"/></div>
-           
-        </div>
-        <div class="checkBoxClass">
-             <div><label>Dance</label></div>
-          <div><input type="checkbox"${
-           Dance && "checked"
-          }   name="interest" /></div>
-          
-        </div>
-        <div class="checkBoxClass">
-            <div><label>Sports</label></div>
-          <div><input type="checkbox" ${
-           Sports && "checked"
-          } name="interest" /></div>
-           
-        </div>
-      </div>
 
       <div class="row">
         <input type="text" value='${email}' id="email" placeholder="Mobule number or email address" />
@@ -306,6 +300,7 @@
           prSelect.style.display = "block";
         } else {
           prSelect.style.display = "none";
+          pronoun = "NA";
         }
       };
     </script>
