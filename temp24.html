@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Game Points: <span id="score">0</span></h1> <!-- Added score display -->
+    <img src="eye-show.png" width="100px" id="show" />
+    <img src="eye-hide.png" width="100px" id="hide" />
+    <script>
+      hide.style.position = "absolute";
+      show.style.position = "absolute";
+      let b = document.body;
+      let left = 0;
+      let down = 400;
+      hide.style.left = left + "px";
+      hide.style.top = down + "px";
+      b.onkeydown = (e) => {
+        if (e.key == "ArrowRight") left += 5;
+        if (e.key == "ArrowDown") down += 5;
+        if (e.key == "ArrowLeft") left -= 5;
+        if (e.key == "ArrowUp") down -= 5;
+        hide.style.left = left + "px";
+        hide.style.top = down + "px";
+      };
+      let t = 0;
+      let l = 0;
+      let gamept = 0; 
+
+      function showFall() {
+        t++;
+        if (t > 400) {
+          if (Math.abs(l - left) < 25 && Math.abs(t - down) < 25) {
+            gamept++;
+            document.getElementById("score").innerText = gamept; 
+          }
+          t = 1;
+          l = Math.random() * 500;
+        }
+        show.style.top = t + "px";
+        show.style.left = l + "px";
+        setTimeout(showFall, 5);
+      }
+      showFall();
+    </script>
+  </body>
+</html>
